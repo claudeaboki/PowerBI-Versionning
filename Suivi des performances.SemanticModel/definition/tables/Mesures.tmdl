@@ -162,6 +162,12 @@ table Mesures
 		formatString: 0
 		lineageTag: 752b7d86-6693-4647-b6c4-03e59248726b
 
+	measure NbreRegions = ```
+			COUNTROWS(D_Regions) 
+			```
+		formatString: 0
+		lineageTag: ae778b82-861c-4487-829c-cd7e113da10b
+
 	column Value
 		isHidden
 		formatString: 0
