@@ -168,6 +168,12 @@ table Mesures
 		formatString: 0
 		lineageTag: ae778b82-861c-4487-829c-cd7e113da10b
 
+	measure NbreProduits = ```
+			COUNTROWS(D_Produits) 
+			```
+		formatString: 0
+		lineageTag: 90218878-3bdd-4c70-a7c7-fbd0d66bcbe1
+
 	column Value
 		isHidden
 		formatString: 0
