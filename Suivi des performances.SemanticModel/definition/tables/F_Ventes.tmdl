@@ -79,7 +79,7 @@ table F_Ventes
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\test\dataTest.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\PowerBI-Versionning\dataTest.xlsx"), null, true),
 				    Ventes_Sheet = Source{[Item="Ventes",Kind="Sheet"]}[Data],
 				    #"En-têtes promus" = Table.PromoteHeaders(Ventes_Sheet, [PromoteAllScalars=true]),
 				    #"Type modifié" = Table.TransformColumnTypes(#"En-têtes promus",{{"VenteID", Int64.Type}, {"Date", type date}, {"ProduitID", Int64.Type}, {"ClientID", Int64.Type}, {"RegionID", Int64.Type}, {"Quantite", Int64.Type}, {"PrixUnitaire", Int64.Type}, {"CoutUnitaire", Int64.Type}})
