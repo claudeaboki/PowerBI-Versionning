@@ -1,0 +1,28 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["D_Produits","D_Regions","D_Clients","F_Ventes"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table D_Produits
+ref table D_Regions
+ref table D_Clients
+ref table F_Ventes
+ref table D_Date
+ref table Mesures
+ref table MesuresTime
+ref table ButtonCostVsSales
+ref table TopN
+
+ref role Role_Canada
+
+ref cultureInfo fr-FR
+

@@ -1,0 +1,16 @@
+relationship AutoDetected_96522681-73cd-46d7-8973-33fc69e254fd
+	fromColumn: F_Ventes.ProduitID
+	toColumn: D_Produits.ProduitID
+
+relationship AutoDetected_8f4694a6-3a85-4016-943a-e532c5eaa506
+	fromColumn: F_Ventes.RegionID
+	toColumn: D_Regions.RegionID
+
+relationship AutoDetected_ce9fd2a6-e444-40a9-a31c-db777885f15a
+	fromColumn: F_Ventes.ClientID
+	toColumn: D_Clients.ClientID
+
+relationship 33327be3-0100-4b40-85f2-cc46a65427d4
+	fromColumn: F_Ventes.Date
+	toColumn: D_Date.Date
+

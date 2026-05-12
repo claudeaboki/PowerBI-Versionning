@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Suivi des performances"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "90dbc4e8-203a-4217-9a61-e2011251a96c"
+  }
+}

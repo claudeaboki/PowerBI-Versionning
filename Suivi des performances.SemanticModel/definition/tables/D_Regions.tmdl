@@ -1,0 +1,43 @@
+table D_Regions
+	lineageTag: 4c42c4c0-f09a-4cd6-bf1c-f16ea10ab610
+
+	column RegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: c1c47bf1-e040-4798-bf2e-cbf6dfc915b9
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionNom
+		dataType: string
+		lineageTag: fbf50a86-dd52-4721-aef1-0bca534d73b6
+		summarizeBy: none
+		sourceColumn: RegionNom
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: b15f0dce-1fce-4463-b781-6e785ee9eedd
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Regions = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\test\dataTest.xlsx"), null, true),
+				    Regions_Sheet = Source{[Item="Regions",Kind="Sheet"]}[Data],
+				    #"En-têtes promus" = Table.PromoteHeaders(Regions_Sheet, [PromoteAllScalars=true]),
+				    #"Type modifié" = Table.TransformColumnTypes(#"En-têtes promus",{{"RegionID", Int64.Type}, {"RegionNom", type text}, {"Pays", type text}})
+				in
+				    #"Type modifié"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

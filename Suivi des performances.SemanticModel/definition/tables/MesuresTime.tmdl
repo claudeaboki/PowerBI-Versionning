@@ -1,0 +1,29 @@
+table MesuresTime
+	lineageTag: 60d18ea0-0596-4b7f-9940-29232be3153e
+
+	measure 'Sales YTD' = TOTALYTD([Total Sales], D_Date[Date])
+		formatString: 0
+		lineageTag: 3c19a079-db80-4f55-8a1d-64875f3642d8
+
+	measure 'Sales LY' = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(D_Date[Date]) )
+		formatString: 0
+		lineageTag: b9eaf8e8-6f6b-4ba3-83a8-e5a0e5ec332c
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: 9f4a2adf-8122-4b37-8e78-d8fb5d82fc56
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MesuresTime = calculated
+		mode: import
+		source = ```
+				{ 1 } 
+				```
+
+	annotation PBI_Id = 6dab1ac1a668417885a6676798b92075
+

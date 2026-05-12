@@ -1,0 +1,7 @@
+role Role_Canada
+	modelPermission: read
+
+	tablePermission D_Regions = [Pays] = "Canada"
+
+	annotation PBI_Id = 2e9ac95e580647879fea76abea7fbd7d
+

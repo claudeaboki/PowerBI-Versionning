@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "3da414d141756e3b973c",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 274.43421765024368,
+    "width": 1280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "D_Produits"
+                    }
+                  },
+                  "Property": "ProduitNom"
+                }
+              },
+              "queryRef": "D_Produits.ProduitNom",
+              "nativeQueryRef": "ProduitNom"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "Mesures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "Product Rank2"
+                }
+              },
+              "queryRef": "Mesures.Product Rank2",
+              "nativeQueryRef": "Product Rank2"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mesures"
+                    }
+                  },
+                  "Property": "Top N Sales2"
+                }
+              },
+              "queryRef": "Mesures.Top N Sales2",
+              "nativeQueryRef": "Top N Sales2"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

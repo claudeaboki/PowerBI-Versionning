@@ -1,0 +1,48 @@
+table ButtonCostVsSales
+	lineageTag: ad048ff6-44f4-446f-b4fa-1f5ae792d824
+
+	column CoûtTotal
+		lineageTag: 1cbc6d23-e4e4-4d51-a5c9-b8334adf4e1a
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'CoûtTotal Commande'
+
+		relatedColumnDetails
+			groupByColumn: 'CoûtTotal Champs'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CoûtTotal Champs'
+		isHidden
+		lineageTag: df6f1bd5-b2e8-44cd-b489-2775164e9bca
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'CoûtTotal Commande'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CoûtTotal Commande'
+		isHidden
+		formatString: 0
+		lineageTag: 9cee1180-a465-409e-821b-078d4470b938
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ButtonCostVsSales = calculated
+		mode: import
+		source =
+				{
+				    ("Total Cost", NAMEOF('Mesures'[Total Cost]), 0),
+				    ("Total Sales", NAMEOF('Mesures'[Total Sales]), 1)
+				}
+
+	annotation PBI_Id = 7606615dfd4d412f8c6619bbe1675ab7
+

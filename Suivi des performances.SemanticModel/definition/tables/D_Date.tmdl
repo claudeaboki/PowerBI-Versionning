@@ -1,0 +1,65 @@
+table D_Date
+	lineageTag: 2e712302-c699-4d42-ab26-d1831f9708c9
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: e606af0a-b7b7-4d97-94d6-a8364ac4c755
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Annee
+		formatString: 0
+		lineageTag: 9d3d129e-5065-494a-a701-9674be0cd9b0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Annee]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MoisNumero
+		formatString: 0
+		lineageTag: 4e4f5a8b-199c-4943-a12b-54200275cfc8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MoisNumero]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MoisNom
+		lineageTag: 07340b7d-ed4b-483d-bbeb-c2f5fca875a7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MoisNom]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		lineageTag: dd291578-4f71-44dc-aaf4-f4d70d73f588
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Date = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(
+				        MIN(F_Ventes[Date]),
+				        MAX(F_Ventes[Date])
+				    ),
+				    "Annee", YEAR([Date]),
+				    "MoisNumero", MONTH([Date]),
+				    "MoisNom", FORMAT([Date], "mmmm"),
+				    "Trimestre", "T" & FORMAT([Date], "Q")
+				)
+
+	annotation PBI_Id = 919bd6cda6ae41a1a15e41af55afa6d3
+

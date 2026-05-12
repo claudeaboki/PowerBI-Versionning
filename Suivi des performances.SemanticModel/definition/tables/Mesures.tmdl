@@ -1,0 +1,180 @@
+table Mesures
+	lineageTag: 6d793ee0-c718-46c8-bba1-0b45c8da1a07
+
+	measure 'Total Sales' = SUMX(F_Ventes, F_Ventes[Quantite] * F_Ventes[PrixUnitaire])
+		formatString: 0
+		lineageTag: c831e3cd-d563-46b5-9ab8-7bc0eae7cddd
+
+	measure 'Toatal Quantity' = sum(F_Ventes[Quantite])
+		formatString: 0
+		lineageTag: 17cbf333-452a-4454-aadd-21e7e8ed8e08
+
+	measure 'Total Transactions' = COUNTROWS(F_Ventes)
+		formatString: 0
+		lineageTag: f696bfcd-b960-426b-a67e-da4a4f567d5e
+
+	measure 'Total TransactionsUnique' = ```
+			DISTINCTCOUNT(F_Ventes[VenteID]) 
+			```
+		formatString: 0
+		lineageTag: 025ac116-cad3-4f11-841a-513339c77533
+
+	measure 'Average Selling Price' = ```
+			DIVIDE([Total Sales], [Toatal Quantity]) 
+			```
+		lineageTag: 8722c864-2aae-4455-9b00-108e8ab62e60
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Cost' = ```
+			SUMX(F_Ventes, F_Ventes[Quantite]*F_Ventes[CoutUnitaire]) 
+			```
+		formatString: 0
+		lineageTag: b0f9a658-1068-4a87-b7ab-4926cecdefd1
+
+	measure 'Total Profit' = [Total Sales] - [Total Cost]
+		formatString: 0
+		lineageTag: 731f0ed0-cc18-45d3-9ea0-dd0710b3313d
+
+	measure 'Profit Margin %' = ```
+			DIVIDE([Total Profit], [Total Sales]) 
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: e7bb71b1-11c1-46a8-a25e-7a0fb0b59d37
+
+	measure 'Sales Growth' = [Total Sales] - [Sales LY]
+		formatString: 0
+		lineageTag: 5df4e9a7-b4f6-4de9-8cbd-b10cbf1ef163
+
+	measure 'Sales Growth %' = ```
+			DIVIDE([Sales Growth], [Sales LY]) 
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 3c224725-e19b-4a5a-a06f-41356159b0f6
+
+	measure 'Total Customers' = DISTINCTCOUNT(F_Ventes[ClientID])
+		formatString: 0
+		lineageTag: 5a9c3ec2-3a46-4660-bec6-26c26c2434db
+
+	measure 'Total Products Sold' = ```
+			DISTINCTCOUNT(F_Ventes[ProduitID]) 
+			```
+		formatString: 0
+		lineageTag: 1c45160a-fd51-4b3a-935f-96b098018543
+
+	measure 'Average Sale per Transaction' = ```
+			DIVIDE([Total Sales], [Total Transactions]) 
+			```
+		lineageTag: b0c2e50f-00dd-4fa0-8ec6-652a3206075f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Sale per Customer' = ```
+			DIVIDE([Total Sales], [Total Customers]) 
+			```
+		lineageTag: b05378bb-d6ef-446e-b036-2486073b26ca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Canada' = ```
+			CALCULATE([Total Sales], D_Regions[Pays]= "Canada") 
+			```
+		formatString: 0
+		lineageTag: b115293d-0c8a-46db-b5b0-bd49b76bfd85
+
+	measure 'Sales USA' = ```
+			CALCULATE([Total Sales], D_Regions[Pays]= "USA") 
+			```
+		formatString: 0
+		lineageTag: eeab6357-618e-457c-9762-4d5c6f4b81a1
+
+	measure 'Sales Informatique' = CALCULATE([Total Sales], D_Produits[Categorie] = "Informatique")
+		formatString: 0
+		lineageTag: 3e872251-c43b-42f3-bb5b-8f834b8f30d9
+
+	measure 'Total Sales All Products' = ```
+			CALCULATE([Total Sales], ALL(D_Produits)) 
+			```
+		formatString: 0
+		lineageTag: c2abcc09-0563-4878-b857-067626f30f90
+
+	measure 'Sales % of All Products' = DIVIDE([Total Sales], [Total Sales All Products])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: b32d546b-3d10-4839-bb6f-bc1e13ccba5b
+
+	measure 'Sales Qty > 5' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    FILTER(
+			        F_Ventes,
+			        F_Ventes[Quantite] > 5
+			    )
+			)
+		formatString: 0
+		lineageTag: e741b799-5da5-4566-8a3e-7f4b2b34e9a6
+
+	measure 'Sales with Positive Profit' =
+			CALCULATE([Total Sales], FILTER(F_Ventes, F_Ventes[PrixUnitaire] > F_Ventes[CoutUnitaire])
+			)
+		formatString: 0
+		lineageTag: 0c71aa03-c615-4879-86f8-f69da31e3bf6
+
+	measure 'Total Sales ignore product filter' = CALCULATE([Total Sales], ALL(D_Produits[SousCategorie] ))
+		formatString: 0
+		lineageTag: ae46762d-25a0-44bd-a181-dd21ffbc05b1
+
+	measure 'Product Rank' = ```
+			RANKX(
+			    ALL(D_Produits[ProduitNom]),
+			     [Total Sales],
+			     ,
+			      DESC) 
+			```
+		formatString: 0
+		lineageTag: 4ac7398f-f985-44e6-baf9-25e5a086b48e
+
+	measure 'Top 3 Product Sales' = ```
+			CALCULATE([Total Sales], FILTER(ALL(D_Produits[ProduitNom]), [Product Rank]<=3)) 
+			```
+		formatString: 0
+		lineageTag: ce4f2a2e-401d-4577-916d-edd1a8017092
+
+	measure 'Total Sales AllSelected Products' = CALCULATE([Total Sales], ALLSELECTED(D_Produits))
+		formatString: 0
+		lineageTag: 31d3dafd-4c97-4cc1-9511-cc1f13657ae0
+
+	measure 'Selected TopN' = ```
+			SELECTEDVALUE('TopN'[TopNValue], 5) 
+			```
+		formatString: 0
+		lineageTag: 8c5cd8d9-5322-40ca-9a8d-7482f8d77ee3
+
+	measure 'Product Rank2' = ```
+			RANKX(ALLSELECTED(D_Produits[ProduitNom]), [Total Sales], ,DESC) 
+			```
+		formatString: 0
+		lineageTag: 64ac95ba-2b46-47c4-adb3-0d791a94492a
+
+	measure 'Top N Sales2' = ```
+			IF([Product Rank2] <= [Selected TopN], [Total Sales]) 
+			```
+		formatString: 0
+		lineageTag: 752b7d86-6693-4647-b6c4-03e59248726b
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: c4c940c6-12b6-4dd7-9dba-431e9585e0cc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Mesures = calculated
+		mode: import
+		source = { 1 }
+
+	annotation PBI_Id = fc0ffba4ec994528af7d362f05e3e290
+

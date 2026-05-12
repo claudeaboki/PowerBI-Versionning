@@ -1,0 +1,51 @@
+table D_Produits
+	lineageTag: 59f96ac6-7e74-41cd-a276-1ad5d12fefe1
+
+	column ProduitID
+		dataType: int64
+		formatString: 0
+		lineageTag: a439afdb-02f2-4773-af99-d34391dfc94c
+		summarizeBy: none
+		sourceColumn: ProduitID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProduitNom
+		dataType: string
+		lineageTag: 7b466f47-7158-4c1f-a6bf-229417c33653
+		summarizeBy: none
+		sourceColumn: ProduitNom
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categorie
+		dataType: string
+		lineageTag: 82abbb7d-5f2e-4818-8b64-5cfdcc0c694a
+		summarizeBy: none
+		sourceColumn: Categorie
+
+		annotation SummarizationSetBy = Automatic
+
+	column SousCategorie
+		dataType: string
+		lineageTag: ab6c8cf2-2b1c-49cd-a098-d2d36936664d
+		summarizeBy: none
+		sourceColumn: SousCategorie
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Produits = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\test\dataTest.xlsx"), null, true),
+				    Produits_Sheet = Source{[Item="Produits",Kind="Sheet"]}[Data],
+				    #"En-têtes promus" = Table.PromoteHeaders(Produits_Sheet, [PromoteAllScalars=true]),
+				    #"Type modifié" = Table.TransformColumnTypes(#"En-têtes promus",{{"ProduitID", Int64.Type}, {"ProduitNom", type text}, {"Categorie", type text}, {"SousCategorie", type text}})
+				in
+				    #"Type modifié"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
