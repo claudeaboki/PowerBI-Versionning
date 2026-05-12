@@ -42,7 +42,7 @@ table D_Clients
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\test\dataTest.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\PowerBI-Versionning\dataTest.xlsx"), null, true),
 				    Clients_Sheet = Source{[Item="Clients",Kind="Sheet"]}[Data],
 				    #"En-têtes promus" = Table.PromoteHeaders(Clients_Sheet, [PromoteAllScalars=true]),
 				    #"Type modifié" = Table.TransformColumnTypes(#"En-têtes promus",{{"ClientID", Int64.Type}, {"ClientNom", type text}, {"SegmentClient", type text}, {"Ville", type text}})

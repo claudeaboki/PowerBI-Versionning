@@ -38,7 +38,7 @@ table D_Produits
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\test\dataTest.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\claud\OneDrive\Bureau\PowerBI-Versionning\dataTest.xlsx"), null, true),
 				    Produits_Sheet = Source{[Item="Produits",Kind="Sheet"]}[Data],
 				    #"En-têtes promus" = Table.PromoteHeaders(Produits_Sheet, [PromoteAllScalars=true]),
 				    #"Type modifié" = Table.TransformColumnTypes(#"En-têtes promus",{{"ProduitID", Int64.Type}, {"ProduitNom", type text}, {"Categorie", type text}, {"SousCategorie", type text}})
